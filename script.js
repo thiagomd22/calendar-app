@@ -63,7 +63,7 @@ function initCalendar() {
     eventsArr.forEach((eventObj) => {
       if (
         eventObj.day === i &&
-        eventObj.month === + 1 &&
+        eventObj.month === month + 1 &&
         eventObj.year === year
       ) {
         event = true;
@@ -72,22 +72,28 @@ function initCalendar() {
     if (
       i === new Date().getDate() &&
       year === new Date().getFullYear() &&
-      month === new Date().getMonth() 
+      month === new Date().getMonth()
     ) {
-        activeDay = i;
-        getActiveDay(i);
-        updateEvents(i);
-        if (event) {
-          days += `<div class="day today active event">${i}</div>`;
-        } else {
-          days += `<div class="day today active">${i}</div>`;
-        }
+      activeDay = i;
+      getActiveDay(i);
+      updateEvents(i);
+      if (event) {
+        days += `<div class="day today active event">${i}</div>`;
       } else {
-        if (event) {
-          days += `<div class="day event">${i}</div>`;
-        } else {
-          days += `<div class="day ">${i}</div>`;
-        }
+        days += `<div class="day today active">${i}</div>`;
+      }
+    } else {
+      if (event) {
+        days += `<div class="day event">${i}</div>`;
+      } else {
+        days += `<div class="day ">${i}</div>`;
+      }
     }
   }
+
+  for (let j = 1; j <= nextDays; j++) {
+    days += `<div class="day next-date">${j}</div>`;
+  }
+  daysContainer.innerHTML = days;
+  addListner();
 }
