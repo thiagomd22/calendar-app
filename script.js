@@ -37,3 +37,19 @@ const months = [
   "December",
 ];
 
+const eventsArr = [];
+getEvents();
+console.log(eventsArr);
+
+function initCalendar() {
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const prevLastDay = new Date(year, month, 0);
+  const prevDays = prevLastDay.getDate();
+  const lastDate = lastDay.getDate();
+  const day = firstDay.getDay();
+  const nextDays = 7 - lastDay.getDay() - 1;
+
+  date.innerHTML = months[month] + " " + year;
+
+}
