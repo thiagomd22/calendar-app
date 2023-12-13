@@ -52,4 +52,42 @@ function initCalendar() {
 
   date.innerHTML = months[month] + " " + year;
 
+  let days = "";
+
+  for (let x = day; x > 0; x--) {
+    days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
+  }
+
+  for (let i = 1; i <= lastDate; i++) {
+    let event = false;
+    eventsArr.forEach((eventObj) => {
+      if (
+        eventObj.day === i &&
+        eventObj.month === + 1 &&
+        eventObj.year === year
+      ) {
+        event = true;
+      }
+    });
+    if (
+      i === new Date().getDate() &&
+      year === new Date().getFullYear() &&
+      month === new Date().getMonth() 
+    ) {
+        activeDay = i;
+        getActiveDay(i);
+        updateEvents(i);
+        if (event) {
+          days += `<div class="day today active event">${i}</div>`;
+        } else {
+          days += `<div class="day today active">${i}</div>`;
+        }
+      } else {
+        if (event) {
+          days += `<div class="day event">${i}</div>`;
+        } else {
+          days += `<div class="day ">${i}</div>`;
+        }
+    }
+  }
 }
