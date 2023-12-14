@@ -231,3 +231,21 @@ function updateEvents() {
   saveEvents();
 }
 
+addEventBtn.addEventListener("click", () => {
+  addEventWrapper.classList.toggle("active");
+});
+
+addEventBtn.addEventListener("click", () => {
+  addEventWrapper.classList.remove("active");
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
+    addEventWrapper.classList.remove("active");
+  }
+});
+
+addEventTitle.addEventListener("input", (e) => {
+  addEventTitle.value = addEventTitle.value.slice(0, 60);
+});
+
