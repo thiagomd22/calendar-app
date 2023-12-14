@@ -122,5 +122,40 @@ next.addEventListener("click", nextMonth);
 initCalendar();
 
 function addListner() {
-  
+  const days = document.querySelectorAll(".day");
+  days.forEach((day) => {
+    day.addEventListener("click", (e) => {
+      getActiveDay(e.target.innerHTML);
+      updateEvents(Number(e.target.innerHTML));
+      activeDay = Number(e.target.innerHTML);
+
+      days.forEach((day) => {
+        day.classList.remove("active");
+      });
+
+      if (e.target.classList.contains("prev-date")) {
+        prevMonth();
+        setTimeout(() => {
+          const days = document.querySelectorAll(".day");
+          days.forEach((day) => {
+            if (!day.classList.contains("prev-date") && day.innerHTML === e.target.innerHTML) {
+              day.classList.add("active");
+            }
+          });
+        }, 100);
+      } else if (e.target.classList.contains("next-date")) {
+        nextMonth();
+        setTimeout(() => {
+          const days = document.querySelectorAll(".day");
+          days.forEach((day) => {
+            if (!day.classList.contains("next-date") && day.innerHTML === e.target.innerHTML) {
+              day.classList.add("active");
+            }
+          });
+        }, 100);
+      } else {
+        e.target.classList.add("active");
+      }
+    });
+  });
 }
