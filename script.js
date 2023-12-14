@@ -332,7 +332,7 @@ addEventSubmit.addEventListener("click", () => {
   let eventAdded = false;
   if (eventsArr.length > 0) {
     eventsArr.forEach((item) => {
-      if (item.day == activeDay && item.month == month+1 && item.year == year) {
+      if (item.day == activeDay && item.month == month + 1 && item.year == year) {
         item.events.push(newEvent);
         eventAdded = true;
       }
@@ -360,3 +360,30 @@ addEventSubmit.addEventListener("click", () => {
     activeDayEl.classList.add("event");
   }
 });
+
+eventsContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("event")) {
+    if ( confirm("Are you sure you want to delete this event?")) {
+      const eventTitle = e.target.children[0].children[1].innerHTML;
+      eventsArr.forEach((event) => {
+        if (event.day == activeDay && event.month == month + 1 && event.year == year) {
+          event.events.forEach((item, index) => {
+            if (item.title === eventTitle) {
+              event.events.splice(index, 1);
+            }
+          });
+          if (event.events.length === 0) {
+            eventsArr.splice(eventsArr.indexOf(event), 1);
+
+            const activeDayEl = document.querySelector(".day.active");
+            if (activeDayEl,classList.contains("event")) {
+              activeDayEl.classList.remove("event");
+            }
+          }
+        }
+      });
+      updateEvents(activeDay);
+    }
+  }
+});
+
