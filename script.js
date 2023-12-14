@@ -268,3 +268,37 @@ function defineProperty() {
 }
 
 defineProperty();
+
+addEventFrom.addEventListener("input", (e) => {
+  addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
+  if (addEventFrom.value.length === 2) {
+    addEventFrom.value += ":";
+  }
+  if (addEventFrom.value.length > 5) {
+    addEventFrom.value = addEventFrom.value.slice(0, 5);
+  }
+});
+
+addEventTo.addEventListener("input", (e) => {
+  addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
+  if (addEventTo.value.length === 2) {
+    addEventTo.value += ":";
+  }
+  if (addEventTo.value.length > 5) {
+    addEventTo.value = addEventTo.value.slice(0, 5);
+  }
+});
+
+addEventSubmit.addEventListener("click", () => {
+  const eventTitle = addEventTitle.value;
+  const eventTimeFrom = addEventFrom.value;
+  const eventTimeTo = addEventTo.value;
+  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+    alert("Please fill all the fields");
+    return;
+  }
+
+
+
+  
+});
