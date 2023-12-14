@@ -298,7 +298,65 @@ addEventSubmit.addEventListener("click", () => {
     return;
   }
 
+  const timeFromArr = eventTimeFrom.split(":");
+  const timeToArr = eventTimeTo.split(":");
+  if (timeFromArr.length !== 2 || timeToArr.length !== 2 || timeFromArr[0] > 23 || timeFromArr[1] > 59 || timeToArr[0] > 23 || timeToArr[1] > 59) {
+    alert("Invalid Time Format");
+    return;
+  }
 
+  const timeFrom = convertTime(eventTimeFrom);
+  const timeTo = convertTime(eventTimeTo);
 
-  
+  let eventExist = false;
+  eventsArr.forEach((event) => {
+    if (event.day === activeDay && event.month === month + 1 && event.year === year) {
+      event.events.forEach((event) => {
+        if (event.title === eventTitle) {
+          eventExist = true;
+        }
+      });
+    }
+  });
+
+  if (eventExist) {
+    alert("Event already added")
+    return;
+  }
+  const newEvent = {
+    title: eventTitle,
+    time: timeFrom + " - " + timeTo,
+  };
+  console.log(newEvent);
+  console.log(activeDay);
+  let eventAdded = false;
+  if (eventsArr.length > 0) {
+    eventsArr.forEach((item) => {
+      if (item.day == activeDay && item.month == month+1 && item.year == year) {
+        item.events.push(newEvent);
+        eventAdded = true;
+      }
+    });
+  }
+
+  if (!eventAdded) {
+    eventsArr.push({
+      day: activeDay,
+      month: month + 1,
+      year: year,
+      events: [newEvent],
+    });
+  }
+
+  console.log(eventsArr);
+  addEventWrapper.classList.remove("active");
+  addEventTitle.value = "";
+  addEventFrom.value = "";
+  addEventTo.value = "";
+  updateEvents(activeDay);
+
+  const activeDayEl = document.querySelector(".day.active");
+  if (!activeDayEl.classList.contains("event")) {
+    activeDayEl.classList.add("event");
+  }
 });
